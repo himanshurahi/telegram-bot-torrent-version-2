@@ -417,8 +417,12 @@ function prepDownload(msg: TelegramBot.Message, match: string, isTar: boolean): 
             }else{
               var rawurl = constants.INDEX_DOMAIN + res.body.name ;
             }
+            ariaTools.ADURL(res.body.GDLink, rawurl, (err:any, res1:any) => {
+              // console.log(res)
+              msgTools.sendMessage(bot, msg, `Torrent Already Downloaded...🤗\n\nGDrive Link: <a href='${res1.adgurl}'>${res.body.name}</a> (${res.body.fileSize}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href='${res1.adindexurl}'>${res.body.name}</a>\n\n<b>Please Don't Download Dead Torrents.🙏🏻</b>`, -1);
+            })
             // GDrive Link: <a href='${url}'>${fileName}</a> (${fileSizeStr}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href='${indexurl}'>${fileName}</a>`;
-            msgTools.sendMessage(bot, msg, `Torrent Already Downloaded...🤗\n\nGDrive Link: <a href='${res.body.GDLink}'>${res.body.name}</a> (${res.body.fileSize}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href='${rawurl}'>${res.body.name}</a>\n\n<b>Please Don't Download Dead Torrents.🙏🏻</b>`, -1);
+            
           }else{
             dlManager.setStatusLock(msg, uriAdded);
           }
