@@ -2,7 +2,7 @@ module.exports = Object.freeze({
   TOKEN: '1036199133:AAFFzcQGcnCqDiYFz8YYz6UcXBitjY2a4nw', //required
   ARIA_SECRET: 'bhadoo', //change as per needs.
   ARIA_DOWNLOAD_LOCATION: '/app/downloads/', //-leave as it is
-  INDEX_DOMAIN: 'https://drive.himanshurahi.workers.dev/uploadbot/', // replace with your index domain. use https://github.com/ParveenBhadooOfficial/go-drive
+  INDEX_DOMAIN: 'https://drive.himanshurahi.workers.dev/0:/uploadbot/', // replace with your index domain. use https://github.com/ParveenBhadooOfficial/go-drive
   ARIA_DOWNLOAD_LOCATION_ROOT: '/', //The mountpoint that contains ARIA_DOWNLOAD_LOCATION -leave as it is
   ARIA_FILTERED_DOMAINS: [], // Prevent downloading from URLs containing these substrings -leave as it is
   ARIA_FILTERED_FILENAMES: [], // Files/top level directories with these substrings in the filename won't be downloaded -leave as it is
