@@ -353,15 +353,15 @@ export function DBSaveDownloadComplete(gid:any, fileName : any, infoHash:any ,gd
   })
 }
 
-export  function ADURL(gurl :any, indexurl:any, callback : (err : any, res:any) => void){
+export  function ADURL(gurl :any, callback : (err : any, res:any) => void){
   request.get({uri : `http://ouo.io/api/W9dxceA8?s=${gurl}`}, (err:any, res:any) => {
-    request.get({uri : `http://ouo.io/api/W9dxceA8?s=${indexurl}`}, (err1:any, res1:any) => {
+   
     if(res){
-      callback(null, {adgurl : res.body, adindexurl : res1.body})
+      callback(null, {adgurl : res.body})
     }else{
       callback(err, null)
     }
-  })
+ 
 
   })
  
