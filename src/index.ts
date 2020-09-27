@@ -211,7 +211,7 @@ setEventCallback(eventRegex.commandsRegex.list, eventRegex.commandsRegexNoName.l
     msgTools.sendUnauthorizedMessage(bot, msg);
   } else {
     driveList.listFiles(match[2], (err, res) => {
-      if (err) {
+    if (err) {
         msgTools.sendMessage(bot, msg, 'Failed to fetch the list of files');
       } else {
         msgTools.sendMessage(bot, msg, res, 60000);
