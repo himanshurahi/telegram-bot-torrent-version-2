@@ -419,7 +419,7 @@ function prepDownload(msg: TelegramBot.Message, match: string, isTar: boolean): 
             }
             ariaTools.ADURL(res.body.GDLink, (err:any, res1:any) => {
               // console.log(res)
-              msgTools.sendMessage(bot, msg, `Torrent Already Downloaded...🤗\n\nGDrive Link: <a href='${res1.adgurl}'>${res.body.name}</a> (${res.body.fileSize}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href='${rawurl}'>${res.body.name}</a>\n\n<b>Please Don't Download Dead Torrents.🙏🏻</b>`, -1);
+              msgTools.sendMessage(bot, msg, `Torrent Already Downloaded...🤗\n\nGDrive Link: <a href="${res1.adgurl}">${res.body.name}</a> (${res.body.fileSize}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href="${rawurl}">${res.body.name}</a>\n\n<b>Please Don't Download Dead Torrents.🙏🏻</b>`, -1);
             })
             // GDrive Link: <a href='${url}'>${fileName}</a> (${fileSizeStr}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href='${indexurl}'>${fileName}</a>`;
             
@@ -837,14 +837,14 @@ function driveUploadCompleteCallback(err: string, gid: string, url: string, file
     if(flag == 1){
       ariaTools.ADURL(url, (err:any, fres: any) => {
         console.log(fres)
-        finalMessage = `GDrive Link: <a href='${fres.adgurl}'>${fileName}</a> (${fileSizeStr}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href='${indexurl}'>${fileName}</a>`;
+        finalMessage = `GDrive Link: <a href="${fres.adgurl}">${fileName}</a> (${fileSizeStr}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href="${indexurl}">${fileName}</a>`;
         cleanupDownload(gid, finalMessage, url);
       })
     
     }else{
       ariaTools.ADURL(url, (err:any, fres: any) => {
         console.log(fres)
-        finalMessage = `GDrive Link: <a href='${fres.adgurl}'>${fileName}</a> \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href='${indexurl}'>${fileName}</a>`;
+        finalMessage = `GDrive Link: <a href="${fres.adgurl}">${fileName}</a> \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href="${indexurl}">${fileName}</a>`;
         cleanupDownload(gid, finalMessage, url);
  
       })
