@@ -39,6 +39,7 @@ bot.on('message', (msg) => {
   
   const chatId = msg.chat.id;
   console.log(chatId)
+  console.log(base64('gogoel.com'));
   // start: RegExp;
   // readonly mirrorTar: RegExp;
   // readonly mirror: RegExp;
@@ -104,6 +105,10 @@ bot.on('message', (msg) => {
   // msgTools.sendMessage(bot, msg, 'Received your message');
 });
 
+//base64 encode function
+function base64(string : string): any{
+  return Buffer.from(string).toString('base64');
+}
 
 function setEventCallback(regexp: RegExp, regexpNoName: RegExp,
   callback: ((msg: TelegramBot.Message, match?: RegExpExecArray) => void)): void {
@@ -417,10 +422,12 @@ function prepDownload(msg: TelegramBot.Message, match: string, isTar: boolean): 
             }else{
               var rawurl = constants.INDEX_DOMAIN + res.body.name ;
             }
-            ariaTools.ADURL(res.body.GDLink, (err:any, res1:any) => {
+           
+            var final_url = `${constants.AD_LINK}/?key=${base64(rawurl)}`
+            var final_gdurl = `${constants.AD_LINK}/?key=${base64(res.body.GDLink)}`
               // console.log(res)
-              msgTools.sendMessage(bot, msg, `Torrent Already Downloaded...🤗\n\nGDrive Link: <a href="${res1.adgurl}">${res.body.name}</a> (${res.body.fileSize}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href="${rawurl}">${res.body.name}</a>\n\n<b>Please Don't Download Dead Torrents.🙏🏻</b>`, -1);
-            })
+              msgTools.sendMessage(bot, msg, `Torrent Already Downloaded...🤗\n\nGDrive Link: <a href="${final_gdurl}">${res.body.name}</a> (${res.body.fileSize}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href="${final_url}">${res.body.name}</a>\n\n<b>Please Don't Download Dead Torrents.🙏🏻</b>`, -1);
+            
             // GDrive Link: <a href='${url}'>${fileName}</a> (${fileSizeStr}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href='${indexurl}'>${fileName}</a>`;
             
           }else{
@@ -805,13 +812,12 @@ function driveUploadCompleteCallback(err: string, gid: string, url: string, file
       }else{
         var rawurl = constants.INDEX_DOMAIN + fileName ;
       }
-      var indexurl = encodeURI(rawurl) ;
-      
-      flag = 1
-      
+      var indexurl = encodeURI(rawurl)
+      var final_indexurl = `${constants.AD_LINK}\?key=${base64(encodeURI(rawurl))}` ;
+      var final_url = `${constants.AD_LINK}\?key=${base64(url)}`
+      finalMessage = `GDrive Link: <a href="${final_url}">${fileName}</a> (${fileSizeStr}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href="${final_indexurl}">${fileName}</a>`;
     } else {
-      flag = 0
-      
+      finalMessage = `GDrive Link: <a href="${final_url}">${fileName}</a> \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href="${final_indexurl}">${fileName}</a>`;
     }
     aria2.tellStatus(gid, ["totalLength", "infoHash" ,"numSeeders" ,"connections" , "files"], (err:any, resp : any) => {
       //  var fileName = resp.files[0].path.split('/')[5]
@@ -833,22 +839,7 @@ function driveUploadCompleteCallback(err: string, gid: string, url: string, file
     //   console.log(res ? res.body : err)
     // })
 
-    //adding ADS Link
-    if(flag == 1){
-      ariaTools.ADURL(url, (err:any, fres: any) => {
-        console.log(fres)
-        finalMessage = `GDrive Link: <a href="${fres.adgurl}">${fileName}</a> (${fileSizeStr}) \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href="${indexurl}">${fileName}</a>`;
-        cleanupDownload(gid, finalMessage, url);
-      })
-    
-    }else{
-      ariaTools.ADURL(url, (err:any, fres: any) => {
-        console.log(fres)
-        finalMessage = `GDrive Link: <a href="${fres.adgurl}">${fileName}</a> \n\nDo not Share Direct Link. \n\nTo Share Use: \n\n<a href="${indexurl}">${fileName}</a>`;
-        cleanupDownload(gid, finalMessage, url);
- 
-      })
-     }
+    cleanupDownload(gid, finalMessage, url);
     
     }
   }
