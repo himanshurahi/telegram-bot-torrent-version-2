@@ -81,7 +81,7 @@ function generateFilesListMessage (files:any[]): string {
   var message = '';
   if (files.length > 0) {
     for (var i = 0; i < files.length; i++) {
-      message += '<a href = \'' + `${constants.AD_LINK}/?key=${Buffer.from(files[i]['url']).toString('base64')}` + '\'>' + files[i]['name'] + '</a>';
+      message += '<a href = \'' + files[i]['url'] + '\'>' + files[i]['name'] + '</a>';
       if (files[i]['size'])
         message += ' (' + dlUtils.formatSize(files[i]['size']) + ')\n';
       else if (files[i]['mimeType'] === 'application/vnd.google-apps.folder')
